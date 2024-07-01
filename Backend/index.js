@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config(); // Load environment variables from .env file
 
 const app = express();
 app.use(express.json());
@@ -24,8 +27,10 @@ app.get("/", (req, res) => {
 app.use("/api/", require("./Routes/CreateUser"));
 app.use("/api/", require("./Routes/DisplayData"));
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
+const HOST = "0.0.0.0"; // Bind to all network interfaces
 
-app.listen(PORT, () => {
-  console.log("Server is running on : " + PORT);
+// Listen on HOST and PORT
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on ${HOST}:${PORT}`);
 });
